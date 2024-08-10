@@ -31,7 +31,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 // middleware to parse JSON request bodies
 app.use(express.json());
 app.use(cors({
-  origin: 'https://vegan-ventures.onrender.com/',
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
   ));
@@ -41,7 +41,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.send('API is running'));
 
 // use routes for requests
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/favorites', favoritesRoutes);
 app.use('/api/users', userRoutes);
