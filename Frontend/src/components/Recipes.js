@@ -3,21 +3,35 @@ import axios from 'axios';
 
 const Recipes = () => {
     const [recipes, setRecipes] = useState([]);
-    const apiUrl = process.env.REACT_APP_API_URL;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const apiUrl = 'https://api.spoonacular.com/recipes/complexSearch';
+    const apiKey = process.env.REACT_APP_SPOONACULAR_API_KEY;
 
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/recipes`);
-                setRecipes(response.data);
+                const response = await axios.get(apiUrl, {
+                    params: {
+                        apiKey,
+                        query: 'vegan',
+                        number: 15
+                    }
+                });
+                setRecipes(response.data.results);
+                setLoading(false);
             } catch (error) {
-                console.error('Error fetching recipes:', error);
+                setError('Error fetching recipes');
+                setLoading(false);
             }
         };
-
+        
         fetchRecipes();
-    }, [apiUrl]);
+    }, [apiUrl, apiKey]);
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+    
     return (
         <div>
             <h1>Recipes</h1>
