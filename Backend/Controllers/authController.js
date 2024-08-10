@@ -13,10 +13,7 @@ exports.registerUser = async (req, res) => {
             return res.status(400).json({ msg: 'User already exists'});
         }
 
-        user = new User({
-            username,
-            password,
-        });
+        user = new User({ username, password });
 
         // generate a salt and hash the password
         const salt = await bcrypt.genSalt(10);
@@ -26,11 +23,7 @@ exports.registerUser = async (req, res) => {
         await user.save();
 
         // create payload with user id
-        const payload = {
-            user: {
-                id: user.id,
-            },
-        };
+        const payload = { user: { id: user.id, }, };
 
         // sign a JSON Web Token and send it in the response
         jwt.sign(
@@ -66,11 +59,7 @@ exports.loginUser = async (req, res) => {
             return res.status(400).json({ msg: 'Invalid credentials '});
         }
 
-        const payload = {
-            user: {
-                id: user.id,
-            },
-        };
+        const payload = { user: { id: user.id, }, };
 
         // sign JWT and send in response
         jwt.sign(
@@ -88,6 +77,5 @@ exports.loginUser = async (req, res) => {
     }
 
     exports.checkStatus = (req, res) => {
-    res.json({ isAuthenticated: true });
-        
-};
+        res.json({ isAuthenticated: true });
+    };
