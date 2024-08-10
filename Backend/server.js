@@ -30,7 +30,11 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // middleware to parse JSON request bodies
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://vegan-ventures.onrender.com/',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+  ));
 app.use(bodyParser.json());
 
 // define simple route to check if API is running
