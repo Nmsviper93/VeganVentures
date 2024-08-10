@@ -38,17 +38,17 @@ const LoginPage = () => {
             // handle login
             if (isLogin) {
                 console.log('Attempting to log in with:', { username, password });
-                const response = await axiosInstance.post('/auth/login', { username, password });
+                response = await axiosInstance.post('/auth/login', { username, password });
                 // localStorage.setItem('token', response.data.token);
                 console.log('Login successful:', response.data);
-                // history.push('/home');
+                history.push('/home');
             } else {
                 // handle create profile
                 console.log('Attempting to create profile with:', { username, email, password });
-                const response = await axiosInstance.post('/auth/register', { username, email, password });
+                response = await axiosInstance.post('/auth/register', { username, email, password });
                 // localStorage.setItem('token', response.data.token);
                 console.log('Profile created:', response.data);
-                // history.push('/home');
+                history.push('/home');
             }
 
             // store token in localStorage
