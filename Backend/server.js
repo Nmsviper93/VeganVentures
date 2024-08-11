@@ -16,6 +16,11 @@ dotenv.config();
 
 // intialize Express application
 const app = express();
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+  ));
 const PORT = process.env.PORT || 5001;
 
 const dbURI = 'mongodb://localhost:27017/Vegan-Ventures';
@@ -30,11 +35,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // middleware to parse JSON request bodies
 app.use(express.json());
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-  ));
 app.use(bodyParser.json());
 
 // define simple route to check if API is running
