@@ -25,73 +25,70 @@ const LoginPage = () => {
         return true;
     };
 
-    const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!validateForm()) return;
+//     const handleSubmit = async (event) => {
+//     event.preventDefault();
+//     if (!validateForm()) return;
     
-    try {
-        let response;
-        if (isLogin) {
-            response = await axiosInstance.post('/auth/login', { username, password });
-        } else {
-            response = await axiosInstance.post('/auth/register', { username, email, password });
-        }
+//     try {
+//         let response;
+//         if (isLogin) {
+//             response = await axiosInstance.post('/auth/login', { username, password });
+//         } else {
+//             response = await axiosInstance.post('/auth/register', { username, email, password });
+//         }
 
-        // Check if response and response.data are defined before accessing token
-        if (response && response.data) {
+//         // Check if response and response.data are defined before accessing token
+//         if (response && response.data) {
+//             localStorage.setItem('authToken', response.data.token);
+//             history.push('/profile');
+//         } else {
+//             setError('An error occurred, please try again.');
+//         }
+//     } catch (error) {
+//         console.error('Error during submission:', error);
+//         setError('An error occurred, please try again.');
+//     }
+// };
+
+    
+     const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (!validateForm()) return;
+        
+        try {
+            console.log("Submitting form...");
+            console.log("Form data:", { username, email, password });
+            console.log("Endpoint:", isLogin ? '/auth/login' : '/auth/register');
+            
+            let response;
+            // handle login
+            if (isLogin) {
+                console.log('Attempting to log in with:', { username, password });
+                const authUrl = isLogin ? 'https://vegan-ventures.onrender.com/login' : 'https://vegan-ventures.onrender.com/register';
+                response = await axios.post(authUrl, { username, email, password });
+                localStorage.setItem('token', response.data.token);
+                console.log('Login successful:', response.data);
+                history.push('/profile');
+             } 
+            else {
+                // handle create profile
+                console.log('Attempting to create profile with:', { username, email, password });
+                response = await axiosInstance.post('/auth/register', { username, email, password });
+                // localStorage.setItem('token', response.data.token);
+                console.log('Profile created:', response.data);
+                history.push('/home');
+            }
+
+            // store token in localStorage
             localStorage.setItem('authToken', response.data.token);
+
+            // redirect to profile page
             history.push('/profile');
-        } else {
+        } catch (error) {
+            console.error('Error during submission:', error);
             setError('An error occurred, please try again.');
         }
-    } catch (error) {
-        console.error('Error during submission:', error);
-        setError('An error occurred, please try again.');
-    }
-};
-
-
-
-
-    
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     if (!validateForm()) return;
-        
-    //     try {
-    //         console.log("Submitting form...");
-    //         console.log("Form data:", { username, email, password });
-    //         console.log("Endpoint:", isLogin ? '/auth/login' : '/auth/register');
-            
-    //         let response;
-    //         // handle login
-    //         if (isLogin) {
-    //             console.log('Attempting to log in with:', { username, password });
-    //             const authUrl = isLogin ? 'https://vegan-ventures.onrender.com/login' : 'https://vegan-ventures.onrender.com/register';
-    //             response = await axios.post(authUrl, { username, email, password });
-    //             localStorage.setItem('token', response.data.token);
-    //             console.log('Login successful:', response.data);
-    //             history.push('/profile');
-    //          } 
-    //         // else {
-    //         //     // handle create profile
-    //         //     console.log('Attempting to create profile with:', { username, email, password });
-    //         //     response = await axiosInstance.post('/auth/register', { username, email, password });
-    //         //     // localStorage.setItem('token', response.data.token);
-    //         //     console.log('Profile created:', response.data);
-    //         //     history.push('/home');
-    //         // }
-
-    //         // store token in localStorage
-    //         localStorage.setItem('authToken', response.data.token);
-
-    //         // redirect to profile page
-    //         history.push('/profile');
-    //     } catch (error) {
-    //         console.error('Error during submission:', error);
-    //         setError('An error occurred, please try again.');
-    //     }
-    // };
+    };
 
     return (
         <div className="login-container">
