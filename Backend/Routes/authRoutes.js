@@ -6,16 +6,16 @@ const { verifyToken } = require('../Middleware/authMiddleware');
 // @route  POST request to 'api/auth/register'
 // desc    Register user
 // @access  Public
-router.post('/register', authController.registerUser);
+// router.post('/register', authController.registerUser);
 
 // @route  POST api/auth/login
 // @desc    Authenticate user & get token
 // @access  Public
-router.post('/login', authController.loginUser);
+// router.post('/login', authController.loginUser);
 
 // @route  GET api/auth/check-status
 // @desc   Check authentication status
 // @access Private
-router.get('/check-status', verifyToken, authController.checkStatus);
+// router.get('/check-status', verifyToken, authController.checkStatus);
 
 module.exports = router;
