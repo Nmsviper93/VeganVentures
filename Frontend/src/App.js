@@ -44,8 +44,8 @@ const App = () => {
                     <Route path="/profile" component={ProfilePage} />
                     <Route path="/results" component={ResultsPage} />
                     <Route path="/profile/edit" component={ProfileEditPage} />
-                    <Route path="/login" component={LoginPage} />
-                    <Route path="/register" component={RegisterPage} />
+                    // <Route path="/login" component={LoginPage} />
+                    // <Route path="/register" component={RegisterPage} />
                     <Route path="/recipe/:id" component={RecipeDetailsPage} />
                     <Route path="/recipes" component={Recipes} />
                     <Redirect from="/" to="/login" />
