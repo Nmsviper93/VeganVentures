@@ -7,6 +7,8 @@ const RecipeDetailsPage = () => {
     // get recipe ID from URL
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         // fetch recipe details when component details
@@ -18,12 +20,16 @@ const RecipeDetailsPage = () => {
                 setRecipe(response.data)
             } catch (error) {
                 console.error('Error fetching recipe:', error);
+                setError('Failed to load recipe details.');
+            } finally {
+                setLoading(false);
             }
         };
         fetchRecipe();
     }, [id]);
 
-    if (!recipe) return <div>Loading...</div>;
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
 
     return (
         <div className="recipe-container">
