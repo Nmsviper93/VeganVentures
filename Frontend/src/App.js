@@ -33,7 +33,6 @@ const App = () => {
                     <a href="/search">Search</a>
                     <a href="/favorites">Favorites</a>
                     <a href="/profile">Profile</a>
-                    // <a href="/login">Login</a>
                 </nav>
             </header>
             <Router>
