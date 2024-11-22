@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "module": "CommonJS",        // Ensure ESNext module resolution
+      "moduleResolution": "node", // Enable Node.js module resolution
+      "target": "ESNext",         // Use the latest JavaScript features
+      "esModuleInterop": true,    // Enable interop for CommonJS modules
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": [
+      "src/**/*.ts"
+    ]
+  }
